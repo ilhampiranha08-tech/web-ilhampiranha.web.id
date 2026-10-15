@@ -8,7 +8,7 @@
 
 Official web portfolio and showcase repository of **Ilham Sugiri** — Independent Software Engineer, Native Android Architect, Quantitative EA Developer, and Open-Source Linux Educator based in **Bantul, Indonesia**.
 
-🌐 **Live Website:** [ilhampiranha08-tech.github.io](https://ilhampiranha08-tech.github.io/)
+🌐 **Live Website:** [ilhampiranha.web.id](https://ilhampiranha.web.id/)
 
 ---
 
@@ -16,9 +16,9 @@ Official web portfolio and showcase repository of **Ilham Sugiri** — Independe
 
 | Product | Description | Live Showcase |
 | :--- | :--- | :--- |
-| **Vortex: File Manager** | High-performance Android file manager with Dual-Pane navigation, hardware AES-256 vault, WebDAV/FTP server, and cloud VFS. | [Open Vortex Showcase ↗](https://ilhampiranha08-tech.github.io/vortex/) |
-| **Pixara Gallery** | Smart AI Gallery & Pro Photo Editor with on-device local AI OCR, biometric secret vault, and zero telemetry. | [Open Pixara Showcase ↗](https://ilhampiranha08-tech.github.io/pixara/) |
-| **Super Expert Advisors** | 11 quantitative automated trading robots engineered for MetaTrader 4 and MetaTrader 5 (.ex4 / .ex5). | [Open EA Showcase ↗](https://ilhampiranha08-tech.github.io/superexpertadvisors/) |
+| **Vortex: File Manager** | High-performance Android file manager with Dual-Pane navigation, hardware AES-256 vault, WebDAV/FTP server, and cloud VFS. | [Open Vortex Showcase ↗](https://ilhampiranha.web.id/vortex/) |
+| **Pixara Gallery** | Smart AI Gallery & Pro Photo Editor with on-device local AI OCR, biometric secret vault, and zero telemetry. | [Open Pixara Showcase ↗](https://ilhampiranha.web.id/pixara/) |
+| **Super Expert Advisors** | 11 quantitative automated trading robots engineered for MetaTrader 4 and MetaTrader 5 (.ex4 / .ex5). | [Open EA Showcase ↗](https://superexpertadvisors.web.id/) |
 | **Piranha Ubuntu Comic** | 10-chapter educational comic series exploring Linux Ubuntu terminal mastery, APT, and open-source ethics. | [Read Online Web Reader ↗](https://ilhampiranha08-tech.github.io/piranha-ubuntu-komik/) |
 
 ---
@@ -29,7 +29,7 @@ Official web portfolio and showcase repository of **Ilham Sugiri** — Independe
 > 
 > **Copyright &copy; 2026 Ilham Sugiri. All rights reserved.**  
 > 
-> This repository is hosted publicly **strictly to enable GitHub Pages hosting** for the live website at `ilhampiranha08-tech.github.io`.  
+> This repository is hosted publicly **strictly to enable GitHub Pages hosting** for the live website at `ilhampiranha.web.id`.  
 > 
 > **NO PERMISSION OR LICENSE IS GRANTED** to clone, copy, replicate, redistribute, republish, resell, or create derivative works of any source code (HTML, CSS, JavaScript), UI/UX designs, graphic banners, backtest reports, trademarks, or brand assets ("Vortex", "Pixara", "Super Expert Advisors") contained in this repository.  
 > 
