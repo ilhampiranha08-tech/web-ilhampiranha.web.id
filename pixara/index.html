@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixara Gallery | Smart AI Gallery & Photo Editor Showcase — Ilham Sugiri</title>
+    <meta name="description" content="Official architecture and feature showcase of Pixara: AI Gallery & Photo Editor by Ilham Sugiri. Fast, 100% Offline AI, Multi-Layer Photo Editor, Biometric Vault, and Zero Tracking.">
+    <meta name="author" content="Ilham Sugiri">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Pixara Gallery — Smart AI Gallery & Photo Editor">
+    <meta property="og:description" content="Next-Generation Android Gallery Experience. 100% Offline AI, Pro Multi-Layer Editor, Biometric Secret Vault & Zero Telemetry by Ilham Sugiri.">
+    <meta property="og:image" content="../assets/banner_pixara_landscape.webp">
+    <meta property="og:url" content="https://ilhampiranha08-tech.github.io/pixara/">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/i18n.css">
+
+    <style>
+        :root {
+            --bg-primary: #0a0718;
+            --bg-secondary: #130e2a;
+            --bg-card: rgba(19, 14, 42, 0.78);
+            --border-color: rgba(168, 85, 247, 0.25);
+            --border-glow: rgba(168, 85, 247, 0.55);
+            
+            --accent-purple: #a855f7;
+            --accent-violet: #8b5cf6;
+            --accent-pink: #ec4899;
+            --accent-fuchsia: #d946ef;
+            --accent-cyan: #06b6d4;
+            --accent-gold: #fbbf24;
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.65;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(168, 85, 247, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 65%, rgba(236, 72, 153, 0.08) 0%, transparent 45%),
+                linear-gradient(to bottom, #0a0718 0%, #110c26 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* TOP NAVIGATION */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 7, 24, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.9rem 0;
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 0.45rem 0.9rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .nav-back:hover {
+            color: #fff;
+            background: rgba(168, 85, 247, 0.15);
+            border-color: var(--accent-purple);
+            transform: translateX(-2px);
+        }
+
+        .nav-back-short {
+            display: none;
+        }
+
+        .nav-title {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-purple);
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .nav-title .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-fuchsia);
+            box-shadow: 0 0 10px var(--accent-fuchsia);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.4; transform: scale(0.9); }
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .btn-play-store {
+            background: linear-gradient(135deg, #9333ea 0%, #c026d3 100%);
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            font-weight: 700;
+            box-shadow: 0 4px 14px rgba(147, 51, 234, 0.35);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .btn-play-store:hover {
+            background: linear-gradient(135deg, #a855f7 0%, #d946ef 100%);
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.55);
+            transform: translateY(-2px);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 3.5rem 0 2rem;
+            text-align: center;
+        }
+
+        .badge-pill {
+            display: inline-block;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent-purple);
+            background: rgba(168, 85, 247, 0.12);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            margin-bottom: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .hero-title {
+            font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-tagline {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            max-width: 760px;
+            margin: 0 auto 1.25rem;
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.4rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .btn-purple {
+            background: linear-gradient(135deg, #9333ea 0%, #c026d3 100%);
+            color: #ffffff;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 4px 15px rgba(147, 51, 234, 0.35);
+        }
+
+        .btn-purple:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 22px rgba(168, 85, 247, 0.55);
+            background: linear-gradient(135deg, #a855f7 0%, #d946ef 100%);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* 2K WIDESCREEN HERO BANNER */
+        .hero-banner-frame {
+            position: relative;
+            margin: 1.5rem auto 3rem;
+            max-width: 1060px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(168, 85, 247, 0.35);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 40px rgba(168, 85, 247, 0.2);
+            background: #0d0822;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero-banner-frame:hover {
+            transform: translateY(-4px);
+            border-color: rgba(168, 85, 247, 0.6);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 55px rgba(168, 85, 247, 0.35);
+        }
+
+        .hero-banner-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* CALLOUT BANNER */
+        .privacy-callout {
+            background: linear-gradient(90deg, rgba(147, 51, 234, 0.18) 0%, rgba(192, 38, 211, 0.15) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            border-radius: 14px;
+            padding: 1.25rem 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin: 0 auto 3.5rem;
+            max-width: 1060px;
+            flex-wrap: wrap;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .callout-text h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .callout-text p {
+            font-size: 0.92rem;
+            color: #cbd5e1;
+        }
+
+        /* SPECS BAR */
+        .specs-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .spec-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.2rem 1rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.25s ease;
+        }
+
+        .spec-item:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.2);
+        }
+
+        .spec-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.35rem;
+            display: block;
+        }
+
+        .spec-title {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-fuchsia);
+            margin-bottom: 0.2rem;
+        }
+
+        .spec-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* SECTION STYLES */
+        .section {
+            padding: 3.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-purple);
+            letter-spacing: 0.08em;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.01em;
+        }
+
+        /* FEATURES GRID */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #9333ea, #ec4899);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(168, 85, 247, 0.6);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(168, 85, 247, 0.2);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1.1rem;
+            display: inline-block;
+        }
+
+        .feature-title {
+            font-size: 1.22rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.65rem;
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        /* ARCHITECTURE & POSTER SHOWCASE */
+        .showcase-split {
+            display: grid;
+            grid-template-columns: 1fr 1.25fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .showcase-split {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .poster-wrapper {
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(168, 85, 247, 0.2);
+            background: #0d0822;
+        }
+
+        .poster-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .poster-wrapper:hover img {
+            transform: scale(1.02);
+        }
+
+        .arch-info h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            line-height: 1.25;
+        }
+
+        .arch-info p.lead {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 1.75rem;
+            line-height: 1.7;
+        }
+
+        .arch-points {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .arch-point {
+            display: flex;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.15rem;
+            transition: all 0.2s ease;
+        }
+
+        .arch-point:hover {
+            background: rgba(168, 85, 247, 0.08);
+            border-color: rgba(168, 85, 247, 0.4);
+            transform: translateX(4px);
+        }
+
+        .arch-point-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .arch-point-text h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+        }
+
+        .arch-point-text p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* FINAL CALL TO ACTION */
+        .final-cta {
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.22) 0%, rgba(192, 38, 211, 0.16) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            border-radius: 20px;
+            padding: 3.5rem 2rem;
+            text-align: center;
+            margin: 4rem 0 2rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 35px rgba(168, 85, 247, 0.15);
+        }
+
+        .final-cta h2 {
+            font-size: clamp(2rem, 4vw, 2.6rem);
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+        }
+
+        .final-cta p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            max-width: 650px;
+            margin: 0 auto 2rem;
+        }
+
+        .final-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 2.5rem 0;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.88rem;
+        }
+
+        footer p {
+            margin-bottom: 0.4rem;
+        }
+
+        /* RESPONSIVE BREAKPOINTS */
+        @media (max-width: 900px) {
+            .nav-title {
+                display: none !important;
+            }
+            .hero-title {
+                font-size: 2.4rem;
+            }
+            .showcase-split {
+                grid-template-columns: 1fr;
+            }
+            .poster-wrapper {
+                max-width: 380px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-back-full {
+                display: none !important;
+            }
+            .nav-back-short {
+                display: inline !important;
+            }
+            .nav-content {
+                gap: 0.5rem;
+            }
+            .nav-actions {
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 580px) {
+            header {
+                padding: 0.65rem 0;
+            }
+            .container {
+                padding: 0 1rem;
+            }
+            .nav-header-btn {
+                display: none !important;
+            }
+            .nav-back {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.84rem;
+            }
+            .lang-btn {
+                padding: 0.4rem 0.65rem;
+                font-size: 0.82rem;
+            }
+            .hero {
+                padding: 2.2rem 0 1.5rem;
+            }
+            .badge-pill {
+                font-size: 0.72rem;
+                padding: 0.35rem 0.75rem;
+                line-height: 1.4;
+            }
+            .hero-title {
+                font-size: 2.1rem;
+            }
+            .hero-tagline {
+                font-size: 1.1rem;
+            }
+            .hero-desc {
+                font-size: 0.95rem;
+            }
+            .hero-cta-group {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.75rem;
+            }
+            .hero-cta-group .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .privacy-callout {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 1.25rem;
+            }
+            .privacy-callout .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .specs-bar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.65rem;
+            }
+            .spec-item {
+                padding: 0.85rem 0.5rem;
+            }
+            .spec-title {
+                font-size: 0.78rem;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .feature-card {
+                padding: 1.5rem;
+            }
+            .final-cta {
+                padding: 2.5rem 1.25rem;
+            }
+            .final-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            .final-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP NAVIGATION -->
+    <header>
+        <div class="container nav-content">
+            <a href="../" class="nav-back" title="Back to Profile">
+                <span class="nav-back-full" data-i18n="nav_back_profile">◀ Back to Ilham Sugiri Profile</span>
+                <span class="nav-back-short" data-i18n="nav_back_short">◀ Back</span>
+            </a>
+            
+            <div class="nav-title">
+                <span class="dot"></span>
+                <span>PIXARA // CREATIVE & AI LAB</span>
+            </div>
+
+            <div class="nav-actions">
+                <a href="https://play.google.com/store/apps/details?id=com.pixara.gallery" target="_blank" rel="noopener noreferrer" class="btn btn-play-store nav-header-btn" title="Get Pixara on Google Play" data-i18n="pixara_btn_play">
+                    ⚡ Get on Google Play ↗
+                </a>
+
+                <div class="lang-switch-wrapper">
+                    <button class="lang-btn" id="langBtn" onclick="toggleLangDropdown(event)" aria-label="Select Language">
+                        <span class="globe-icon">🌐</span>
+                        <span id="currentLangLabel">EN</span>
+                        <span class="arrow-icon">▼</span>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <button class="lang-option active" id="opt-en" onclick="setLanguage('en')">
+                            <span class="flag">🇬🇧</span> English <span class="tag-badge">Default</span>
+                        </button>
+                        <button class="lang-option" id="opt-id" onclick="setLanguage('id')">
+                            <span class="flag">🇮🇩</span> Bahasa Indonesia
+                        </button>
+                        <button class="lang-option" id="opt-es" onclick="setLanguage('es')">
+                            <span class="flag">🇪🇸</span> Español
+                        </button>
+                        <button class="lang-option" id="opt-pt" onclick="setLanguage('pt')">
+                            <span class="flag">🇧🇷</span> Português (Brasil)
+                        </button>
+                        <button class="lang-option" id="opt-ru" onclick="setLanguage('ru')">
+                            <span class="flag">🇷🇺</span> Русский
+                        </button>
+                        <button class="lang-option" id="opt-hi" onclick="setLanguage('hi')">
+                            <span class="flag">🇮🇳</span> हिन्दी
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <span class="badge-pill" data-i18n="pixara_page_tag">✨ SMART AI GALLERY & PHOTO EDITOR • 100% OFFLINE • ZERO ADS</span>
+            <h1 class="hero-title">Pixara: <span>AI Gallery</span></h1>
+            <p class="hero-tagline" data-i18n="pixara_hero_tagline">Fast, Private & Ad-Free. Smart AI Photo Studio in Your Pocket.</p>
+            <p class="hero-desc" data-i18n="pixara_hero_desc">
+                An intelligent, privacy-first Android gallery and creative editing suite crafted natively by Ilham Sugiri. Featuring pro multi-layer photo editing, on-device offline AI tools (OCR text extractor & background eraser), AES-256 biometric secret vault, fast duplicate cleaner, and zero telemetry tracking.
+            </p>
+
+            <div class="hero-cta-group">
+                <a href="https://play.google.com/store/apps/details?id=com.pixara.gallery" target="_blank" rel="noopener noreferrer" class="btn btn-purple" style="font-size: 1rem; padding: 0.85rem 1.6rem;" data-i18n="pixara_btn_play">
+                    ⚡ Get on Google Play ↗
+                </a>
+                <a href="privacy.html" class="btn btn-secondary" data-i18n="pixara_btn_privacy">
+                    🛡️ Privacy Policy
+                </a>
+                <a href="https://github.com/ilhampiranha08-tech" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" data-i18n="pixara_btn_github">
+                    💻 Developer GitHub
+                </a>
+            </div>
+
+            <!-- WIDESCREEN LANDSCAPE BANNER SHOWCASE -->
+            <div class="hero-banner-frame">
+                <img src="../assets/banner_pixara_landscape.webp" alt="Pixara Gallery Landscape Showcase Banner - Ilham Sugiri" class="hero-banner-img">
+            </div>
+
+            <!-- PRIVACY CALLOUT -->
+            <div class="privacy-callout">
+                <div class="callout-text">
+                    <h3 data-i18n="pixara_callout_title">💎 100% Privacy & Zero Third-Party Ads</h3>
+                    <p data-i18n="pixara_callout_desc">Pixara performs all AI computations, image manipulations, and vault encryptions locally on your phone. No personal memories ever touch external servers.</p>
+                </div>
+                <a href="privacy.html" class="btn btn-secondary" data-i18n="pixara_callout_btn">
+                    Read Privacy Policy ↗
+                </a>
+            </div>
+        </section>
+
+        <!-- SPECS BAR -->
+        <div class="specs-bar">
+            <div class="spec-item">
+                <span class="spec-icon">🤖</span>
+                <div class="spec-title" data-i18n="pixara_spec_offline">100% OFFLINE AI</div>
+                <div class="spec-desc" data-i18n="pixara_spec_offline_sub">Zero Cloud Uploads</div>
+            </div>
+            <div class="spec-item">
+                <span class="spec-icon">🚫</span>
+                <div class="spec-title" data-i18n="pixara_spec_adfree">100% AD-FREE</div>
+                <div class="spec-desc" data-i18n="pixara_spec_adfree_sub">Pure Clean Focus</div>
+            </div>
+            <div class="spec-item">
+                <span class="spec-icon">🔒</span>
+                <div class="spec-title" data-i18n="pixara_spec_vault">AES BIOMETRIC VAULT</div>
+                <div class="spec-desc" data-i18n="pixara_spec_vault_sub">Hardware Encrypted</div>
+            </div>
+            <div class="spec-item">
+                <span class="spec-icon">🌌</span>
+                <div class="spec-title" data-i18n="pixara_spec_ui">CYBER GLASSMORPHISM</div>
+                <div class="spec-desc" data-i18n="pixara_spec_ui_sub">OLED Battery Saver</div>
+            </div>
+        </div>
+
+        <!-- 6 KEY PILLARS FEATURE DEEP DIVE -->
+        <section class="section">
+            <div class="section-header">
+                <span class="section-tag" data-i18n="pixara_sec1_tag">01 // CORE SYSTEM CAPABILITIES</span>
+                <h2 class="section-title" data-i18n="pixara_sec1_title">6 Core Pillars of Pixara Gallery</h2>
+            </div>
+
+            <div class="features-grid">
+                
+                <!-- 1. MULTI-LAYER EDITOR -->
+                <div class="feature-card">
+                    <span class="feature-icon">🎨</span>
+                    <h3 class="feature-title" data-i18n="pixara_f1_title">Pro Multi-Layer Photo Editor & Free Canvas</h3>
+                    <p class="feature-desc" data-i18n="pixara_f1_desc">
+                        Professional editing studio directly inside your gallery. Features true multi-layer stacking, dynamic crop with quick numpad aspect ratios, freeform doodling, rich typography, stickers, frames, and precise color grading.
+                    </p>
+                </div>
+
+                <!-- 2. OFFLINE AI OCR & ERASER -->
+                <div class="feature-card">
+                    <span class="feature-icon">🤖</span>
+                    <h3 class="feature-title" data-i18n="pixara_f2_title">100% Offline Smart AI Tools (OCR & Object Eraser)</h3>
+                    <p class="feature-desc" data-i18n="pixara_f2_desc">
+                        High-performance on-device AI. Extract text from receipts and documents instantly using offline OCR, erase unwanted backgrounds and objects with precision, and transform photos into oil paintings or pencil sketches using native OpenCV Computer Vision.
+                    </p>
+                </div>
+
+                <!-- 3. SECRET VAULT & BIOMETRIC -->
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <h3 class="feature-title" data-i18n="pixara_f3_title">Secret Vault & Biometric Hardware Lock</h3>
+                    <p class="feature-desc" data-i18n="pixara_f3_desc">
+                        Fortified digital privacy for sensitive photos and videos. Protected with AES hardware encryption, secured behind PIN authentication and device biometric fingerprint scanning. Nothing ever touches the cloud.
+                    </p>
+                </div>
+
+                <!-- 4. SMART CLEANER & DUPLICATE -->
+                <div class="feature-card">
+                    <span class="feature-icon">🧹</span>
+                    <h3 class="feature-title" data-i18n="pixara_f4_title">Smart Cleaner & Fast Hash Duplicate Remover</h3>
+                    <p class="feature-desc" data-i18n="pixara_f4_desc">
+                        Reclaim gigabytes of device storage. High-speed cryptographic hashing detects exact duplicate images, analyzes bulky video files, and sweeps away residual junk with a single tap to keep internal storage running lean and fast.
+                    </p>
+                </div>
+
+                <!-- 5. VIDEO EDITOR & BATCH -->
+                <div class="feature-card">
+                    <span class="feature-icon">🎬</span>
+                    <h3 class="feature-title" data-i18n="pixara_f5_title">Built-in Video Editor & Batch Image Processing</h3>
+                    <p class="feature-desc" data-i18n="pixara_f5_desc">
+                        Essential video and batch toolbox without extra apps. Trim video durations, rotate orientations, compress heavy videos without visual loss, extract MP3 audio tracks, and perform batch resize and format conversions across hundreds of photos simultaneously.
+                    </p>
+                </div>
+
+                <!-- 6. DOCUMENT SCANNER & EXIF -->
+                <div class="feature-card">
+                    <span class="feature-icon">📄</span>
+                    <h3 class="feature-title" data-i18n="pixara_f6_title">Smart Document Scanner (PDF) & EXIF Privacy Stripper</h3>
+                    <p class="feature-desc" data-i18n="pixara_f6_desc">
+                        Digitize physical paperwork, invoices, and receipts with automatic perspective flattening and magic color enhancement, exporting directly to crisp PDF. Strip GPS coordinates and private device EXIF metadata before sharing on social media.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ARCHITECTURE & VERTICAL POSTER SPLIT -->
+        <section class="section">
+            <div class="showcase-split">
+                <div class="poster-wrapper">
+                    <img src="../assets/poster_pixara.jpg" alt="Pixara Gallery Full Architecture Poster - Ilham Sugiri">
+                </div>
+                
+                <div class="arch-info">
+                    <span class="section-tag" data-i18n="pixara_sec2_tag">02 // ARCHITECTURE & PRIVACY MANIFESTO</span>
+                    <h3 data-i18n="pixara_arch_title">Engineered for Velocity, Creativity & Total Privacy</h3>
+                    <p class="lead" data-i18n="pixara_arch_desc">
+                        Pixara was built by Ilham Sugiri to break free from heavy, ad-ridden stock gallery apps that secretly harvest user telemetry and compromise mobile device performance.
+                    </p>
+
+                    <div class="arch-points">
+                        <div class="arch-point">
+                            <span class="arch-point-icon">🤖</span>
+                            <div class="arch-point-text">
+                                <h4 data-i18n="pixara_arch_p1_title">On-Device Local AI & Computer Vision:</h4>
+                                <p data-i18n="pixara_arch_p1_desc">All machine learning inference (OCR, object segmentation, OpenCV artistic filters) runs 100% client-side on your phone processor without internet access.</p>
+                            </div>
+                        </div>
+
+                        <div class="arch-point">
+                            <span class="arch-point-icon">🛡️</span>
+                            <div class="arch-point-text">
+                                <h4 data-i18n="pixara_arch_p2_title">Zero-Telemetry & 100% Ad-Free:</h4>
+                                <p data-i18n="pixara_arch_p2_desc">Zero tracking SDKs, zero behavioral surveillance, zero banner ads, and zero interstitial videos. Your memories remain solely your own.</p>
+                            </div>
+                        </div>
+
+                        <div class="arch-point">
+                            <span class="arch-point-icon">⚡</span>
+                            <div class="arch-point-text">
+                                <h4 data-i18n="pixara_arch_p3_title">Deep Dark OLED Glassmorphism UI:</h4>
+                                <p data-i18n="pixara_arch_p3_desc">Futuristic dark cyber interface with polished glass aesthetics, crafted with 120Hz smooth scrolling that drastically reduces AMOLED display battery consumption.</p>
+                            </div>
+                        </div>
+
+                        <div class="arch-point">
+                            <span class="arch-point-icon">🔐</span>
+                            <div class="arch-point-text">
+                                <h4 data-i18n="pixara_arch_p4_title">Hardware Keystore Encryption:</h4>
+                                <p data-i18n="pixara_arch_p4_desc">Private albums stored in Secret Vault are encrypted with symmetric keys locked inside Android Hardware Keystore silicon chip.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL CALL TO ACTION -->
+        <section class="final-cta">
+            <span class="badge-pill" style="border-color: rgba(168, 85, 247, 0.5);" data-i18n="pixara_final_badge">📱 NEXT-GEN GALLERY EXPERIENCE</span>
+            <h2 data-i18n="pixara_final_title">Take Control of Your Photo Memories Today</h2>
+            <p data-i18n="pixara_final_desc">Experience lightning-fast browsing, pro-grade photo and video editing, and uncompromised privacy protection in one unified Android app.</p>
+            <div class="final-actions">
+                <a href="https://play.google.com/store/apps/details?id=com.pixara.gallery" target="_blank" rel="noopener noreferrer" class="btn btn-purple" style="font-size: 1.05rem; padding: 0.9rem 2rem;" data-i18n="pixara_final_btn">
+                    ⚡ Get Pixara Gallery on Google Play ↗
+                </a>
+                <a href="../" class="btn btn-secondary" data-i18n="pixara_final_back">
+                    ◀ Back to Ilham Sugiri Profile
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p data-i18n="footer_rights">&copy; 2026 <strong>Ilham Sugiri</strong>. All rights reserved.</p>
+            <p data-i18n="pixara_footer_sub">Pixara Gallery is an independent Android application crafted by Ilham Sugiri • Bantul, Indonesia</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+                <a href="../" style="color: #94a3b8; text-decoration: none;">Profile Home</a> •
+                <a href="privacy.html" style="color: #c084fc; text-decoration: none; font-weight: 600;">Privacy Policy</a> •
+                <a href="../vortex/" style="color: #94a3b8; text-decoration: none;">Vortex: File Manager</a> •
+                <a href="https://play.google.com/store/apps/details?id=com.pixara.gallery" target="_blank" rel="noopener noreferrer" style="color: #94a3b8; text-decoration: none;">Google Play ↗</a>
+            </p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #64748b;" data-i18n="footer_crafted">Crafted with passion in Bantul • Powered by Linux & GitHub Pages</p>
+        </div>
+    </footer>
+
+    <!-- MODULAR I18N MODULES & ENGINE -->
+    <script src="../assets/i18n/core.js"></script>
+    <script src="../assets/i18n/pixara.js"></script>
+    <script src="../assets/i18n.js"></script>
+</body>
+</html>

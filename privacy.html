@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Vortex: File Manager</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #131b2e;
+            --card-border: #1e293b;
+            --accent-cyan: #00f0ff;
+            --accent-teal: #10b981;
+            --accent-blue: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; padding: 2rem 1.5rem; }
+        .container { max-width: 860px; margin: 0 auto; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 2.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+        h1 { color: #ffffff; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        h2 { color: var(--accent-cyan); font-size: 1.35rem; margin-top: 1.75rem; margin-bottom: 0.65rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 0.35rem; }
+        h3 { color: #ffffff; font-size: 1.1rem; margin-top: 1.2rem; margin-bottom: 0.45rem; }
+        p, li { color: var(--text-muted); font-size: 0.96rem; margin-bottom: 0.75rem; }
+        ul { padding-left: 1.5rem; margin-bottom: 1rem; }
+        li { margin-bottom: 0.4rem; }
+        strong { color: var(--text-main); }
+        code { background: rgba(0, 240, 255, 0.1); color: var(--accent-cyan); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.88rem; font-family: monospace; }
+        a { color: var(--accent-cyan); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 1.5rem;
+            color: #e2e8f0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 0.45rem 0.95rem;
+            border-radius: 999px;
+            font-size: 0.88rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .back-link:hover {
+            color: var(--accent-cyan);
+            border-color: rgba(0, 240, 255, 0.5);
+            background: rgba(0, 240, 255, 0.1);
+            text-decoration: none;
+        }
+        .disclosure-box {
+            background: rgba(15, 23, 42, 0.7);
+            border-left: 4px solid var(--accent-cyan);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0 1.5rem;
+        }
+        .highlight-green {
+            border-left-color: var(--accent-teal);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Vortex: File Manager Home</a>
+        <h1>Privacy Policy</h1>
+        <p><strong>Application:</strong> Vortex: File Manager (Package: <code>com.vortex.filemanager</code>)<br>
+        <strong>Developer:</strong> Ilham Sugiri (Indonesia)<br>
+        <strong>Contact Email:</strong> <a href="mailto:ilham.piranha08@gmail.com">ilham.piranha08@gmail.com</a><br>
+        <strong>Last Updated:</strong> October 14, 2026</p>
+        <hr style="border: 0; border-top: 1px solid var(--card-border); margin: 1.5rem 0;">
+
+        <h2>1. Overview & Privacy Principles</h2>
+        <p><strong>Vortex: File Manager</strong> is designed as a secure, decentralized Android file management and network server application. We believe that your personal data and files belong strictly to you. Vortex adheres to strict privacy principles:</p>
+        <ul>
+            <li>❌ <strong>Zero Analytics & Telemetry:</strong> No Google Analytics, Firebase, or third-party tracking SDKs are bundled.</li>
+            <li>❌ <strong>100% Ad-Free:</strong> No advertising networks, marketing trackers, or sponsored SDKs.</li>
+            <li>❌ <strong>No Proprietary Server Relays:</strong> All transfers occur directly on-device or peer-to-peer (P2P). We do not operate external intermediate servers that store, process, or inspect your files.</li>
+            <li>❌ <strong>No Account Creation:</strong> The application does not require you to create an account with us.</li>
+        </ul>
+
+        <h2>2. Google User Data Policy & Drive Integration Disclosures</h2>
+        <p>To enable cloud file management, Vortex allows users to optionally connect their Google Drive account. In strict compliance with the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer">Google API Services User Data Policy</a>, including the <strong>Limited Use</strong> requirements, below are the transparent disclosures detailing how Google user data is handled:</p>
+
+        <div class="disclosure-box">
+            <h3>2.1 Data Access Disclosure (What Google User Data is Accessed)</h3>
+            <p>When you explicitly connect your Google account in Vortex, the application requests the OAuth scope <code>https://www.googleapis.com/auth/drive</code> to access:</p>
+            <ul>
+                <li><strong>Account Identity:</strong> Your Google account email address solely to identify, label, and distinguish connected accounts in the UI.</li>
+                <li><strong>File & Folder Metadata:</strong> File identifiers, names, MIME types, file sizes, modification timestamps, and thumbnail URLs to render your Google Drive folder hierarchy in the file manager interface.</li>
+                <li><strong>File Contents:</strong> Binary contents of files that you deliberately select to open, stream, download to local storage, or upload from your device to Google Drive.</li>
+            </ul>
+        </div>
+
+        <div class="disclosure-box">
+            <h3>2.2 Data Use Disclosure (How Google User Data is Used)</h3>
+            <p>Vortex uses Google user data <strong>strictly for user-facing file management functionality</strong> initiated directly by you. Specifically, user data is used for:</p>
+            <ul>
+                <li>Displaying your Google Drive files and directory structure in the app's dual-pane file explorer.</li>
+                <li>Downloading files from Google Drive to your device's internal storage or SD card.</li>
+                <li>Uploading local photos, videos, documents, or archives to your designated Google Drive folders.</li>
+                <li>Performing user-initiated file operations: creating new folders, renaming files, and deleting files from your Google Drive.</li>
+                <li>Streaming audio or video files directly to the built-in media player without downloading the entire file to disk first.</li>
+                <li>Exporting Google Workspace documents (Docs, Sheets, Slides) into standard offline formats (DOCX, XLSX, PPTX, PDF).</li>
+            </ul>
+            <p><strong>Strict Prohibition:</strong> Google user data is <em>never</em> used for advertising, marketing, profiling, credit assessment, machine learning training, or any secondary commercial purposes.</p>
+        </div>
+
+        <div class="disclosure-box highlight-green">
+            <h3>2.3 Data Protection Mechanisms (Security for Sensitive Data)</h3>
+            <p>Vortex implements industry-standard security mechanisms to protect your Google data and OAuth credentials:</p>
+            <ul>
+                <li><strong>Hardware-Backed On-Device Encryption:</strong> OAuth access tokens and credentials are encrypted at rest using <code>EncryptedSharedPreferences</code> with AES-256 GCM encryption, backed by the <strong>Android Keystore</strong> system. No plaintext tokens are ever stored on disk.</li>
+                <li><strong>Encrypted In-Transit Transmission:</strong> All communications with Google Drive API endpoints are conducted exclusively over TLS/HTTPS (HTTP/1.1 with modern cipher suites) directly between your Android device and Google's official servers (<code>https://www.googleapis.com/</code>).</li>
+                <li><strong>No Intermediary Servers:</strong> Tokens and files never pass through any proxy, third-party relay, or developer-owned backend server.</li>
+                <li><strong>Isolated App Sandbox:</strong> Tokens and cached metadata reside entirely within Android's private app sandbox, inaccessible to other applications installed on your device.</li>
+            </ul>
+        </div>
+
+        <div class="disclosure-box">
+            <h3>2.4 Data Retention and Deletion Disclosure</h3>
+            <p>Vortex adheres to strict data minimization, retention, and deletion practices:</p>
+            <ul>
+                <li><strong>Local Retention Only:</strong> Authentication tokens and transient file metadata caches remain stored on your device only for as long as your Google Drive account remains linked in the app.</li>
+                <li><strong>Immediate Deletion via Disconnect:</strong> You can disconnect your Google Drive account at any time by tapping the <em>Disconnect</em> / <em>Remove</em> option in the Cloud Storage screen. Doing so immediately and permanently purges all OAuth tokens, cached file sizes, and directory listings from your device's encrypted storage.</li>
+                <li><strong>Uninstall Deletion:</strong> Uninstalling the Vortex application permanently wipes all stored tokens, credentials, and app cache automatically via the Android OS.</li>
+                <li><strong>Third-Party Revocation:</strong> You can revoke Vortex's access to your Google account at any moment through Google's official security dashboard at <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer">https://myaccount.google.com/permissions</a>. Once revoked, all subsequent API requests from the app will be immediately invalidated and rejected by Google.</li>
+            </ul>
+        </div>
+
+        <h3>2.5 Limited Use Statement</h3>
+        <p>Vortex: File Manager's use and transfer to any other app of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+
+        <h2>3. Android Permissions Justification</h2>
+        <p>Vortex requests the following Android permissions strictly when needed to perform user-requested actions:</p>
+        <ul>
+            <li><strong><code>MANAGE_EXTERNAL_STORAGE</code>:</strong> Required by file manager applications on Android 11+ to browse, copy, move, rename, delete, and organize files across internal storage and SD cards.</li>
+            <li><strong><code>INTERNET</code>:</strong> Required exclusively to communicate directly with official cloud APIs (Google Drive, Dropbox, OneDrive, pCloud, Yandex) and to run local network server protocols (FTP, SFTP, WebDAV, HTTP).</li>
+            <li><strong><code>ACCESS_WIFI_STATE</code> / <code>CHANGE_WIFI_STATE</code>:</strong> Used to maintain Wi-Fi connectivity and WakeLock during active file transfers and local server hosting.</li>
+            <li><strong><code>FOREGROUND_SERVICE</code>:</strong> Keeps background file transfers, downloads, and local servers running uninterrupted when the app is minimized.</li>
+            <li><strong><code>USE_BIOMETRIC</code>:</strong> Protects local Safe Folder access using on-device biometric fingerprint or PIN authentication.</li>
+            <li><strong><code>NEARBY_WIFI_DEVICES</code> / <code>ACCESS_FINE_LOCATION</code>:</strong> Required by Android OS solely for Wi-Fi Direct peer discovery during Near-Drop wireless transfers. Physical GPS location data is never accessed, tracked, or stored.</li>
+        </ul>
+
+        <h2>4. Third-Party Sharing</h2>
+        <p>Vortex does <strong>NOT</strong> share, sell, rent, or trade your personal data, files, or credentials with any third parties, advertisers, or data brokers under any circumstances.</p>
+
+        <h2>5. Children's Privacy</h2>
+        <p>Vortex does not knowingly collect or solicit any personal information from children under the age of 13. The application is a neutral file management utility.</p>
+
+        <h2>6. Changes to This Privacy Policy</h2>
+        <p>We may update this Privacy Policy from time to time. Any revisions will be published on this page with an updated "Last Updated" date. We encourage users to periodically review this page for any changes.</p>
+
+        <h2>7. Contact Information</h2>
+        <p>If you have any questions, concerns, or requests regarding this Privacy Policy or your data, please contact the developer directly at:</p>
+        <p>
+            <strong>Developer:</strong> Ilham Sugiri<br>
+            <strong>Email:</strong> <a href="mailto:ilham.piranha08@gmail.com">ilham.piranha08@gmail.com</a><br>
+            <strong>GitHub:</strong> <a href="https://github.com/ilhampiranha08-tech" target="_blank" rel="noopener noreferrer">https://github.com/ilhampiranha08-tech</a><br>
+            <strong>Location:</strong> Indonesia
+        </p>
+    </div>
+</body>
+</html>

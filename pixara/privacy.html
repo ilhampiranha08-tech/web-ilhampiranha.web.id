@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Pixara Gallery</title>
+    <meta name="description" content="Official Privacy Policy for Pixara Gallery by Ilham Sugiri. 100% offline local processing, zero data collection, and hardware-backed biometric security.">
+    <meta name="author" content="Ilham Sugiri">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Privacy Policy — Pixara Gallery">
+    <meta property="og:description" content="Pixara Gallery performs 100% offline local processing. Zero data collection, no telemetry, and hardware-backed biometric security.">
+    <meta property="og:url" content="https://ilhampiranha08-tech.github.io/pixara/privacy.html">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #06080e;
+            --card-bg: rgba(13, 20, 36, 0.85);
+            --card-border: rgba(168, 85, 247, 0.25);
+            --accent-purple: #9333ea;
+            --accent-fuchsia: #c026d3;
+            --accent-glow: #e879f9;
+            --accent-emerald: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.65;
+            padding: 2.5rem 1.25rem;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(147, 51, 234, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(192, 38, 211, 0.08) 0%, transparent 45%),
+                linear-gradient(to bottom, #06080e 0%, #0b101c 100%);
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 2.75rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            color: #e2e8f0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #fff;
+            border-color: var(--accent-fuchsia);
+            background: rgba(192, 38, 211, 0.15);
+            transform: translateX(-2px);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            display: inline-block;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent-glow);
+            background: rgba(168, 85, 247, 0.12);
+            border: 1px solid rgba(168, 85, 247, 0.35);
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: clamp(2rem, 4vw, 2.6rem);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff 40%, #e879f9 85%, #c026d3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .meta-info {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.1rem 1.4rem;
+            margin: 1.25rem 0 2rem;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .meta-info strong {
+            color: #ffffff;
+        }
+
+        h2 {
+            color: #ffffff;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-top: 2.25rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 0.45rem;
+        }
+
+        h2 .num {
+            font-family: 'Fira Code', monospace;
+            color: var(--accent-glow);
+            font-size: 1.1rem;
+        }
+
+        h3 {
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-top: 1.2rem;
+            margin-bottom: 0.45rem;
+        }
+
+        p, li {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            margin-bottom: 0.85rem;
+            line-height: 1.7;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        li {
+            margin-bottom: 0.6rem;
+        }
+
+        strong {
+            color: #ffffff;
+        }
+
+        code {
+            background: rgba(192, 38, 211, 0.12);
+            color: var(--accent-glow);
+            padding: 0.15rem 0.45rem;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-family: 'Fira Code', monospace;
+            border: 1px solid rgba(168, 85, 247, 0.25);
+        }
+
+        a {
+            color: var(--accent-glow);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .disclosure-box {
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.08) 0%, rgba(13, 20, 36, 0.85) 100%);
+            border-left: 4px solid var(--accent-fuchsia);
+            border-top: 1px solid rgba(168, 85, 247, 0.2);
+            border-right: 1px solid rgba(168, 85, 247, 0.2);
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 12px;
+            padding: 1.35rem 1.5rem;
+            margin: 1.25rem 0 1.75rem;
+        }
+
+        .highlight-emerald {
+            border-left-color: var(--accent-emerald);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(13, 20, 36, 0.85) 100%);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="nav-links">
+            <a href="index.html" class="back-link">← Back to Pixara Gallery Showcase</a>
+            <a href="../" class="back-link">← Ilham Sugiri Profile</a>
+        </div>
+
+        <span class="badge-pill">🔒 Official Privacy Statement</span>
+        <h1>Privacy Policy — Pixara Gallery</h1>
+
+        <div class="meta-info">
+            <strong>Application:</strong> Pixara Gallery (Package: <code>com.pixara.gallery</code>)<br>
+            <strong>Developer:</strong> Ilham Sugiri (Bantul, Indonesia)<br>
+            <strong>Contact Email:</strong> <a href="mailto:ilham.piranha08@gmail.com">ilham.piranha08@gmail.com</a><br>
+            <strong>Effective Date:</strong> October 2026
+        </div>
+
+        <p>
+            This Privacy Policy explains how the <strong>Pixara Gallery</strong> app collects, uses, and protects your information.
+        </p>
+
+        <!-- SECTION 1 -->
+        <h2><span class="num">1.</span> Local Data Processing (100% Offline)</h2>
+        <div class="disclosure-box highlight-emerald">
+            <p>
+                The Pixara Gallery app is designed with your privacy as a top priority. All processing of photos, videos, text, stickers, and image editing is performed <strong>exclusively and locally on your device (offline)</strong>.
+            </p>
+            <p style="margin-bottom: 0;">
+                We <strong>never upload, copy, or transfer</strong> your photos, videos, or any personal data to any external servers.
+            </p>
+        </div>
+
+        <!-- SECTION 2 -->
+        <h2><span class="num">2.</span> Permissions We Request</h2>
+        <p>Pixara Gallery only requests device permissions that are strictly necessary to deliver local gallery and editing capabilities:</p>
+        
+        <ul>
+            <li>
+                <strong>Photo &amp; Video Access (<code>READ_MEDIA_IMAGES</code> / <code>READ_MEDIA_VIDEO</code>):</strong><br>
+                Used solely to allow the app to display and organize the photo gallery on your device.
+            </li>
+            <li>
+                <strong>Camera (Optional):</strong><br>
+                Used only if you wish to take a new photo directly from within the app.
+            </li>
+            <li>
+                <strong>Biometrics / Fingerprint:</strong><br>
+                Used exclusively locally by your device's security system for the "Hidden Folders" feature. <strong>We do not collect or store your fingerprint data.</strong>
+            </li>
+        </ul>
+
+        <!-- SECTION 3 -->
+        <h2><span class="num">3.</span> Data Security</h2>
+        <div class="disclosure-box">
+            <p>
+                Since all data remains on your device, the security of your photos depends on the physical security of your device.
+            </p>
+            <p style="margin-bottom: 0;">
+                We provide an additional protection feature (PIN/Biometric) within the app to prevent unauthorized access to hidden folders if someone else uses your device.
+            </p>
+        </div>
+
+        <!-- SECTION 4 -->
+        <h2><span class="num">4.</span> Changes to This Policy</h2>
+        <p>
+            We may update this policy from time to time. If there are significant changes regarding privacy, we will outline them on this page.
+        </p>
+
+        <!-- CONTACT -->
+        <h2><span class="num">5.</span> Contact Us</h2>
+        <p>
+            If you have any questions or feedback regarding this Privacy Policy, please contact the developer directly at:
+        </p>
+        <p>
+            ✉️ <a href="mailto:ilham.piranha08@gmail.com" style="font-weight: 700; color: #ffffff;">ilham.piranha08@gmail.com</a>
+        </p>
+
+        <footer>
+            <p>&copy; 2026 <strong>Ilham Sugiri</strong>. All rights reserved. • Bantul, Indonesia</p>
+            <p style="margin-top: 0.35rem;">Pixara Gallery is an independent Android application.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vortex: File Manager | Architecture & Engineering Showcase — Ilham Sugiri</title>
+    <meta name="description" content="Official architecture and feature showcase of Vortex: File Manager by Ilham Sugiri. Fast, Secure, Ad-Free, Dual Pane, AES-256 Safe Folder, WebDAV/FTP Server, and Zero Tracking.">
+    <meta name="author" content="Ilham Sugiri">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Vortex: File Manager — Fast. Secure. Ad-Free.">
+    <meta property="og:description" content="Next-Generation Android Storage Experience. Dual-Pane, AES-256 Hardware Encryption, WebDAV/FTP Server & Zero Tracking by Ilham Sugiri.">
+    <meta property="og:image" content="../assets/banner_vortex_landscape.webp">
+    <meta property="og:url" content="https://ilhampiranha08-tech.github.io/vortex/">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/i18n.css">
+
+    <style>
+        :root {
+            --bg-primary: #060b13;
+            --bg-secondary: #0d1522;
+            --bg-card: rgba(13, 23, 37, 0.75);
+            --border-color: rgba(16, 185, 129, 0.25);
+            --border-glow: rgba(16, 185, 129, 0.5);
+            
+            --accent-emerald: #10b981;
+            --accent-green-bright: #34d399;
+            --accent-cyan: #06b6d4;
+            --accent-dark-green: #064e3b;
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.65;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 65%, rgba(6, 182, 212, 0.08) 0%, transparent 45%),
+                linear-gradient(to bottom, #060b13 0%, #09101c 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* TOP NAVIGATION */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(6, 11, 19, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.9rem 0;
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 0.45rem 0.9rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .nav-back:hover {
+            color: #fff;
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--accent-emerald);
+            transform: translateX(-3px);
+        }
+
+        .nav-back-short {
+            display: none;
+        }
+
+        .nav-title {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+        }
+
+        .nav-title .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-emerald);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-emerald);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.25rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .btn-emerald {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #fff;
+            box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
+        }
+
+        .btn-emerald:hover {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+            box-shadow: 0 6px 25px rgba(16, 185, 129, 0.5);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #f1f5f9;
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-official-web {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            border: 1px solid var(--accent-emerald);
+            color: var(--accent-green-bright);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .btn-official-web:hover {
+            background: var(--accent-emerald);
+            color: #060b13;
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.5);
+            transform: translateY(-2px);
+            font-weight: 700;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 3.5rem 0 2.5rem;
+            text-align: center;
+        }
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.9rem;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            border-radius: 50px;
+            color: var(--accent-green-bright);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            margin-bottom: 1.25rem;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, #34d399 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-tagline {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 720px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        /* 2K WIDESCREEN HERO SHOWCASE BANNER */
+        .hero-banner-frame {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.7),
+                0 0 40px rgba(16, 185, 129, 0.2);
+            background: #000;
+            transition: all 0.35s ease;
+        }
+
+        .hero-banner-frame:hover {
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.8),
+                0 0 60px rgba(16, 185, 129, 0.35);
+            border-color: var(--accent-green-bright);
+        }
+
+        .hero-banner-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .hero-banner-frame:hover .hero-banner-img {
+            transform: scale(1.015);
+        }
+
+        /* OFFICIAL WEBSITE HIGHLIGHT BAR */
+        .official-site-callout {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(6, 182, 212, 0.08) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .callout-text h3 {
+            font-size: 1.25rem;
+            color: #fff;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .callout-text p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+        /* KEY FEATURES GRID */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-green-bright);
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.02em;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-emerald), var(--accent-cyan));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1.25rem;
+            display: inline-block;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+
+        /* ARCHITECTURE & POSTER SECTION */
+        .showcase-split {
+            display: grid;
+            grid-template-columns: 1fr 1.25fr;
+            gap: 3rem;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(13, 21, 34, 0.9) 0%, rgba(6, 11, 19, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+        }
+
+        .poster-wrapper {
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .poster-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .arch-content h3 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .arch-points {
+            list-style: none;
+            margin: 1.5rem 0 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .arch-points li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.98rem;
+            color: var(--text-muted);
+        }
+
+        .arch-points li strong {
+            color: #fff;
+        }
+
+        .check-icon {
+            color: var(--accent-green-bright);
+            font-weight: 800;
+            font-size: 1.1rem;
+            line-height: 1.3;
+        }
+
+        /* BIG FINAL CTA BANNER */
+        .final-cta {
+            background: linear-gradient(135deg, rgba(6, 78, 59, 0.4) 0%, rgba(6, 11, 19, 0.95) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 20px;
+            padding: 3.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .final-cta h2 {
+            font-size: 2.4rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .final-cta p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 2rem;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 2.5rem 0;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--accent-green-bright);
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        /* RESPONSIVE BREAKPOINTS */
+        @media (max-width: 900px) {
+            .nav-title {
+                display: none !important;
+            }
+            .hero-title {
+                font-size: 2.4rem;
+            }
+            .showcase-split {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
+            .poster-wrapper {
+                max-width: 380px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-back-full {
+                display: none !important;
+            }
+            .nav-back-short {
+                display: inline !important;
+            }
+            .nav-content {
+                gap: 0.5rem;
+            }
+            .nav-actions {
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 580px) {
+            header {
+                padding: 0.65rem 0;
+            }
+            .container {
+                padding: 0 1rem;
+            }
+            .nav-header-btn {
+                display: none !important;
+            }
+            .nav-back {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.84rem;
+            }
+            .lang-btn {
+                padding: 0.4rem 0.65rem;
+                font-size: 0.82rem;
+            }
+            .hero {
+                padding: 2.2rem 0 1.5rem;
+            }
+            .hero-title { font-size: 2.1rem; }
+            .hero-tagline { font-size: 1.1rem; }
+            .hero-desc { font-size: 0.95rem; }
+            .hero-cta-group {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.75rem;
+            }
+            .hero-cta-group .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .official-site-callout {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 1.25rem;
+            }
+            .official-site-callout .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .feature-card {
+                padding: 1.5rem;
+            }
+            .final-cta {
+                padding: 2.5rem 1.25rem;
+            }
+            .final-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            .final-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STICKY TOP NAV -->
+    <header>
+        <div class="container nav-content">
+            <a href="../" class="nav-back" title="Back to Profile">
+                <span class="nav-back-full" data-i18n="nav_back_profile">◀ Back to Ilham Sugiri Profile</span>
+                <span class="nav-back-short" data-i18n="nav_back_short">◀ Back</span>
+            </a>
+            
+            <div class="nav-title">
+                <span class="dot"></span>
+                <span>VORTEX // STORAGE LAB</span>
+            </div>
+
+            <div class="nav-actions">
+                <a href="https://play.google.com/store/apps/details?id=com.vortex.filemanager" target="_blank" rel="noopener noreferrer" class="btn btn-emerald nav-header-btn" title="Get Vortex on Google Play" data-i18n="btn_vortex_play">
+                    ⚡ Get on Google Play ↗
+                </a>
+                <a href="https://vortexapp.my.id/" target="_blank" rel="noopener noreferrer" class="btn btn-official-web nav-header-btn" title="Official Website" data-i18n="nav_official_web">
+                    🌐 vortexapp.my.id ↗
+                </a>
+
+                <div class="lang-switch-wrapper">
+                    <button class="lang-btn" id="langBtn" onclick="toggleLangDropdown(event)" aria-label="Select Language">
+                        <span class="globe-icon">🌐</span>
+                        <span id="currentLangLabel">EN</span>
+                        <span class="arrow-icon">▼</span>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <button class="lang-option active" id="opt-en" onclick="setLanguage('en')">
+                            <span class="flag">🇬🇧</span> English <span class="tag-badge">Default</span>
+                        </button>
+                        <button class="lang-option" id="opt-id" onclick="setLanguage('id')">
+                            <span class="flag">🇮🇩</span> Bahasa Indonesia
+                        </button>
+                        <button class="lang-option" id="opt-es" onclick="setLanguage('es')">
+                            <span class="flag">🇪🇸</span> Español
+                        </button>
+                        <button class="lang-option" id="opt-pt" onclick="setLanguage('pt')">
+                            <span class="flag">🇧🇷</span> Português (Brasil)
+                        </button>
+                        <button class="lang-option" id="opt-ru" onclick="setLanguage('ru')">
+                            <span class="flag">🇷🇺</span> Русский
+                        </button>
+                        <button class="lang-option" id="opt-hi" onclick="setLanguage('hi')">
+                            <span class="flag">🇮🇳</span> हिन्दी
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <span class="badge-pill" data-i18n="vortex_page_tag">⚡ 100% Android Native • Zero Tracking • Ad-Free</span>
+            <h1 class="hero-title">Vortex: <span>File Manager</span></h1>
+            <p class="hero-tagline" data-i18n="vortex_hero_tagline">Fast. Secure. Ad-Free. Next-Generation Android Storage Experience.</p>
+            <p class="hero-desc" data-i18n="vortex_hero_desc">
+                A next-generation Android file management application built entirely with pure native performance (Kotlin & Jetpack Compose). Featuring Dual-Pane navigation, military-grade AES-256 hardware-backed encryption, wireless WebDAV/FTP servers, and an uncompromising zero-telemetry architecture.
+            </p>
+
+            <div class="hero-cta-group">
+                <a href="https://play.google.com/store/apps/details?id=com.vortex.filemanager" target="_blank" rel="noopener noreferrer" class="btn btn-emerald" style="font-size: 1rem; padding: 0.85rem 1.6rem;" data-i18n="btn_vortex_play">
+                    ⚡ Get on Google Play ↗
+                </a>
+                <a href="https://vortexapp.my.id/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size: 1rem; padding: 0.85rem 1.6rem; border-color: rgba(16, 185, 129, 0.4);" data-i18n="vortex_btn_official">
+                    🌐 Open Official Website (vortexapp.my.id) ↗
+                </a>
+                <a href="../privacy.html" class="btn btn-secondary" data-i18n="vortex_btn_privacy">
+                    🛡️ Privacy Policy
+                </a>
+                <a href="https://github.com/ilhampiranha08-tech" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" data-i18n="vortex_btn_github">
+                    💻 Developer GitHub
+                </a>
+            </div>
+
+            <!-- 2K LANDSCAPE BANNER SHOWCASE -->
+            <div class="hero-banner-frame">
+                <img src="../assets/banner_vortex_landscape.webp" alt="Vortex File Manager Landscape Showcase Banner - Ilham Sugiri" class="hero-banner-img">
+            </div>
+
+            <!-- CALLOUT HIGHLIGHT TO OFFICIAL APEX DOMAIN -->
+            <div class="official-site-callout">
+                <div class="callout-text">
+                    <h3 data-i18n="vortex_callout_title">🌐 Official Website: vortexapp.my.id</h3>
+                    <p data-i18n="vortex_callout_desc">Download official releases, learn about Google Drive OAuth verification, and track application changelogs.</p>
+                </div>
+                <a href="https://vortexapp.my.id/" target="_blank" rel="noopener noreferrer" class="btn btn-official-web" data-i18n="vortex_callout_btn">
+                    Visit vortexapp.my.id ↗
+                </a>
+            </div>
+        </section>
+
+        <!-- 6 KEY PILLARS FEATURE DEEP DIVE -->
+        <section class="section">
+            <div class="section-header">
+                <span class="section-tag" data-i18n="vortex_sec1_tag">01 // CORE SYSTEM CAPABILITIES</span>
+                <h2 class="section-title" data-i18n="vortex_sec1_title">6 Core Pillars of Vortex</h2>
+            </div>
+
+            <div class="features-grid">
+                
+                <!-- 1. DUAL PANE -->
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3 class="feature-title" data-i18n="vortex_f1_title">Super Fast Explorer with Dual Pane</h3>
+                    <p class="feature-desc" data-i18n="vortex_f1_desc">
+                        Simultaneous side-by-side navigation across two folders or storage devices. Moving heavy files, comparing directories, and organizing archives is instant without switching apps.
+                    </p>
+                </div>
+
+                <!-- 2. AES-256 SAFE FOLDER -->
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <h3 class="feature-title" data-i18n="vortex_f2_title">AES-256 Safe Folder Encryption</h3>
+                    <p class="feature-desc" data-i18n="vortex_f2_desc">
+                        Hardware-backed symmetric AES-256-GCM encrypted vault. Cryptographic keys are protected directly by the Android Hardware Keystore chip. Document and photo privacy is 100% fortified at the silicon level.
+                    </p>
+                </div>
+
+                <!-- 3. WEBDAV / FTP SERVER & P2P -->
+                <div class="feature-card">
+                    <span class="feature-icon">📡</span>
+                    <h3 class="feature-title" data-i18n="vortex_f3_title">WebDAV/FTP Server & P2P Near-Drop</h3>
+                    <p class="feature-desc" data-i18n="vortex_f3_desc">
+                        Transform your smartphone into a local wireless file server. Manage and download your phone's files from any PC or laptop browser without cables. Includes instant peer-to-peer Wi-Fi Direct Near-Drop transfers.
+                    </p>
+                </div>
+
+                <!-- 4. NETWORK PROTOCOL CLIENT -->
+                <div class="feature-card">
+                    <span class="feature-icon">🌐</span>
+                    <h3 class="feature-title" data-i18n="vortex_f4_title">SMB / FTP / SFTP / WebDAV Client</h3>
+                    <p class="feature-desc" data-i18n="vortex_f4_desc">
+                        All-in-one network client. Connect seamlessly to personal NAS (Network Attached Storage), Windows network shares (SMB), remote Linux servers over encrypted SSH (SFTP), and cloud WebDAV servers.
+                    </p>
+                </div>
+
+                <!-- 5. CODE & TEXT EDITOR -->
+                <div class="feature-card">
+                    <span class="feature-icon">📝</span>
+                    <h3 class="feature-title" data-i18n="vortex_f5_title">Text Editor with Undo/Redo</h3>
+                    <p class="feature-desc" data-i18n="vortex_f5_desc">
+                        Lightweight yet capable built-in code and text editor. Features line numbering, unlimited Undo & Redo, rapid text search, and multi-format support for inspecting and modifying scripts on the fly.
+                    </p>
+                </div>
+
+                <!-- 6. STORAGE ANALYZER -->
+                <div class="feature-card">
+                    <span class="feature-icon">🧹</span>
+                    <h3 class="feature-title" data-i18n="vortex_f6_title">Storage Analyzer & Smart Clean-Up</h3>
+                    <p class="feature-desc" data-i18n="vortex_f6_desc">
+                        Interactive visual breakdown of internal storage and SD card capacity. Accurately pinpoints bulky space-hogging files, leftover cache, and duplicate files to keep your device clutter-free.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ARCHITECTURE & VERTICAL POSTER SPLIT -->
+        <section class="section">
+            <div class="showcase-split">
+                <div class="poster-wrapper">
+                    <img src="../assets/poster_vortex.jpg" alt="Vortex File Manager Full Architecture Poster - Ilham Sugiri">
+                </div>
+
+                <div class="arch-content">
+                    <span class="section-tag" data-i18n="vortex_sec2_tag">02 // ARCHITECTURE & ENGINEERING</span>
+                    <h3 data-i18n="vortex_arch_title">Engineered for Velocity, Security & Zero Ads</h3>
+                    <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7;" data-i18n="vortex_arch_desc">
+                        Vortex is not just another file explorer. Built from the ground up by Ilham Sugiri with the uncompromising robustness of Linux on modern Android devices.
+                    </p>
+
+                    <ul class="arch-points">
+                        <li>
+                            <span class="check-icon">✔</span>
+                            <div>
+                                <strong data-i18n="vortex_arch_p1_title">Modular Virtual File System (VFS):</strong>
+                                <span data-i18n="vortex_arch_p1_desc">Abstracts Local Storage, SAF, USB OTG, NAS SMB, FTP, SFTP, and WebDAV into a unified high-throughput I/O pipeline.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="check-icon">✔</span>
+                            <div>
+                                <strong data-i18n="vortex_arch_p2_title">Zero-Telemetry & 100% Ad-Free:</strong>
+                                <span data-i18n="vortex_arch_p2_desc">No ad SDKs, no behavioral trackers, no invasive analytics, and no third-party relay proxies. All network traffic flows strictly peer-to-peer.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="check-icon">✔</span>
+                            <div>
+                                <strong data-i18n="vortex_arch_p3_title">Reactive Kotlin Coroutines & Jetpack Compose:</strong>
+                                <span data-i18n="vortex_arch_p3_desc">Next-gen user interface rendering at a smooth 120Hz with zero UI freezing when indexing massive filesystem trees.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="check-icon">✔</span>
+                            <div>
+                                <strong data-i18n="vortex_arch_p4_title">Secure Cloud OAuth Integration:</strong>
+                                <span data-i18n="vortex_arch_p4_desc">Google Drive support utilizing official token authorization without storing user credentials.</span>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="https://play.google.com/store/apps/details?id=com.vortex.filemanager" target="_blank" rel="noopener noreferrer" class="btn btn-emerald" data-i18n="btn_vortex_play">
+                            ⚡ Get on Google Play ↗
+                        </a>
+                        <a href="https://vortexapp.my.id/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="border-color: rgba(16, 185, 129, 0.4);" data-i18n="vortex_btn_official">
+                            🌐 Open Official Website (vortexapp.my.id) ↗
+                        </a>
+                        <a href="../privacy.html" class="btn btn-secondary" data-i18n="vortex_btn_privacy">
+                            🛡️ Privacy Policy
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BIG OFFICIAL WEBSITE CALLOUT BANNER -->
+        <section class="final-cta">
+            <span class="badge-pill" style="margin-bottom: 1rem;" data-i18n="vortex_final_badge">🌐 OFFICIAL APEX DOMAIN</span>
+            <h2 data-i18n="vortex_final_title">Explore the Official Vortex Portal</h2>
+            <p data-i18n="vortex_final_desc">
+                Vortex: File Manager maintains its own verified official apex portal for technical documentation, Google API Trust & Safety compliance, and software releases.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 2;">
+                <a href="https://play.google.com/store/apps/details?id=com.vortex.filemanager" target="_blank" rel="noopener noreferrer" class="btn btn-emerald" style="font-size: 1.1rem; padding: 0.9rem 2.25rem;" data-i18n="btn_vortex_play">
+                    ⚡ Get on Google Play ↗
+                </a>
+                <a href="https://vortexapp.my.id/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size: 1.1rem; padding: 0.9rem 1.8rem; border-color: rgba(16, 185, 129, 0.4);" data-i18n="vortex_final_btn">
+                    🌐 Open https://vortexapp.my.id/ Now ↗
+                </a>
+                <a href="../" class="btn btn-secondary" style="font-size: 1.1rem; padding: 0.9rem 1.8rem;" data-i18n="vortex_final_back">
+                    ◀ Back to Ilham Sugiri Profile
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-nav">
+                <a href="../" data-i18n="nav_apps">Profile Home</a>
+                <span>•</span>
+                <a href="https://vortexapp.my.id/" target="_blank" rel="noopener noreferrer">Official Website (vortexapp.my.id)</a>
+                <span>•</span>
+                <a href="../privacy.html" data-i18n="vortex_btn_privacy">Privacy Policy</a>
+                <span>•</span>
+                <a href="../pixara/">Pixara Gallery</a>
+                <span>•</span>
+                <a href="../piranha-ubuntu-komik/">Piranha Ubuntu Comic</a>
+                <span>•</span>
+                <a href="https://github.com/ilhampiranha08-tech" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+            <p data-i18n="footer_rights">&copy; 2026 <strong>Ilham Sugiri</strong>. All rights reserved.</p>
+            <p style="margin-top: 0.4rem; font-size: 0.8rem; color: #475569;" data-i18n="vortex_footer_sub">
+                Vortex: File Manager is an independent Android application crafted by Ilham Sugiri • Bantul, Indonesia
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODULAR I18N MODULES & ENGINE -->
+    <script src="../assets/i18n/core.js"></script>
+    <script src="../assets/i18n/vortex.js"></script>
+    <script src="../assets/i18n.js"></script>
+</body>
+</html>
