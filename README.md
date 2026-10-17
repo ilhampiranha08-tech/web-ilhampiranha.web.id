@@ -27,7 +27,7 @@ Official web portfolio and showcase repository of **Ilham Sugiri** — Independe
 
 > ### ⚠️ STRICT PROPRIETARY NOTICE — ALL RIGHTS RESERVED
 > 
-> **Copyright &copy; 2026 Ilham Sugiri. All rights reserved.**  
+> **Copyright &copy; 2014 Ilham Sugiri. All rights reserved.**  
 > 
 > This repository is hosted publicly **strictly to enable GitHub Pages hosting** for the live website at `ilhampiranha.web.id`.  
 > 
