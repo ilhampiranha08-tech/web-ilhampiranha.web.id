@@ -38,3 +38,5 @@ Official web portfolio and showcase repository of **Ilham Sugiri** — Independe
 For official licensing, custom engineering, or collaboration inquiries:
 - **Email:** [ilham.piranha08@gmail.com](mailto:ilham.piranha08@gmail.com)
 - **Developer Profile:** [Ilham Sugiri on GitHub](https://github.com/ilhampiranha08-tech)
+- **Instagram:** [@ilhampiranha](https://www.instagram.com/ilhampiranha)
+- **Facebook:** [Ilham Piranha](https://www.facebook.com/share/1J68Hex4sg/)
